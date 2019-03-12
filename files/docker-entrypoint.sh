@@ -44,8 +44,9 @@ if [ ! -f $DOC_ROOT/index.php ]; then
                 "ALTER DATABASE ${DB_NAME} CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
             # Import DB dump
             mysql --defaults-extra-file=$CREDS -h"${DB_HOST}" ${DB_NAME} < $DOC_ROOT/db_terminal.sql
-            # Clear recorded errors
-            mysql --defaults-extra-file=$CREDS -h"${DB_HOST}" ${DB_NAME} -e "DELETE FROM system_errors;"
+            # Some fixes on the imported data
+            mysql --defaults-extra-file=$CREDS -h"${DB_HOST}" ${DB_NAME} -e \
+                "DELETE FROM system_errors;"
             echo " done."
         else
             echo "Database is not empty - skipping db import"

@@ -29,8 +29,6 @@ if [ ! -f $DOC_ROOT/index.php ]; then
     # Create required folders for running scripts
     mkdir -p $DOC_ROOT/cached/voice
     mkdir -p $DOC_ROOT/cached/urls
-    chown -R www-data:www-data $DOC_ROOT
-    chmod +x $DOC_ROOT/*.sh
     echo "done."
 
     # Check database tables
@@ -53,6 +51,10 @@ if [ ! -f $DOC_ROOT/index.php ]; then
         fi
     fi
 fi
+
+# Fix permissions on each entry
+chown -R www-data:www-data $DOC_ROOT
+chmod +x $DOC_ROOT/*.sh
 
 # Execute the commands passed to this script
 exec "$@"

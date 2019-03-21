@@ -4,14 +4,14 @@ ENV HOST_NAME majordomo.localhost
 
 # Configure Apache
 RUN set -ex; \
-    echo "ServerName $HOST_NAME" >> /etc/apache2/apache2.conf; \
-    a2enmod rewrite
+	echo "ServerName $HOST_NAME" >> /etc/apache2/apache2.conf; \
+	a2enmod rewrite
 
 # Install necessary packages and PHP extensions
 RUN set -ex; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends --no-install-suggests \
-        git mysql-client ca-certificates inetutils-ping \
+		git mysql-client ca-certificates inetutils-ping \
 	; \
 	savedAptMark="$(apt-mark showmanual)"; \
 	\
@@ -33,7 +33,7 @@ RUN set -ex; \
 		| xargs -rt apt-mark manual; \
 	\
 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-    apt-get clean ; \
+	apt-get clean ; \
 	rm -rf /var/lib/apt/lists/*
 
 # Docker stuff

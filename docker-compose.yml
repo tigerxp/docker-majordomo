@@ -1,18 +1,25 @@
 version: '2'
 services:
   web:
-    image: tigerxp/docker-majordomo:latest
-    volumes:
-      - ./docker-data/majordomo:/var/www/html
+    extends:
+      file: compose-common.yml
+      service: common
+    depends_on:
+      - db
+      - cycles
     ports:
       - 80:80
+
+  cycles:
+    restart: always
+    extends:
+      file: compose-common.yml
+      service: common
     depends_on:
       - db
     environment:
-      DB_HOST: db
-      DB_NAME: majordomo
-      DB_USER: root
-      DB_PASS: example
+      S2G_BASE_URL: 'http://web:80'
+    command: php cycle.php
 
   db:
     image: mariadb:latest

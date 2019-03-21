@@ -1,0 +1,11 @@
+version: '2'
+services:
+  common:
+    image: tigerxp/docker-majordomo:php-7.1-apache
+    volumes:
+      - ./docker-data/majordomo:/var/www/html
+    environment:
+      DB_HOST: db
+      DB_NAME: majordomo
+      DB_USER: root
+      DB_PASS: example

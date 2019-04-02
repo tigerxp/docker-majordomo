@@ -16,12 +16,13 @@ RUN set -ex; \
 	savedAptMark="$(apt-mark showmanual)"; \
 	\
 	apt-get install -y --no-install-recommends --no-install-suggests \
-		libedit-dev \
+		libjpeg-dev libpng-dev \
 	; \
 	\
-	docker-php-ext-install mysqli opcache sockets readline; \
+	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
+	docker-php-ext-install gd mysqli opcache sockets; \
 	\
-    # reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
+	# reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
 	apt-mark auto '.*' > /dev/null; \
 	apt-mark manual $savedAptMark; \
 	ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \

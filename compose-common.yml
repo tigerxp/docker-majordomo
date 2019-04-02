@@ -1,7 +1,7 @@
 version: '2'
 services:
   common:
-    image: tigerxp/docker-majordomo:php-7.1-apache
+    image: tigerxp/docker-majordomo:latest
     volumes:
       - ./docker-data/majordomo:/var/www/html
     environment:
